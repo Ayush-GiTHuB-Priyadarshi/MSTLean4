@@ -1,6 +1,6 @@
 import Mathlib
 
-variable {V : Type} [Fintype V] [DecidableEq V]
+variable {V : Type} [Fintype V] [DecidableEq V] [Inhabited V]
 
 namespace SimpleGraph
 
@@ -74,10 +74,13 @@ lemma tree_iff_unique_path (G : SimpleGraph V) :
 def Leaf (G : SimpleGraph V) (v : V) [Fintype (G.neighborSet v)] : Prop :=
     G.degree v = 1
 
+#moogle "length of a path is the number of edges in the path."
+#check SimpleGraph.Walk.length
+
 lemma tree_has_two_leaves {T : SimpleGraph V} [Fintype V] (hT : T.IsTree) (hV : Fintype.card V ≥ 2) [∀ v, Fintype (T.neighborSet v)] :
   ∃ v w : V, v ≠ w ∧ Leaf T v ∧ Leaf T w := by
   sorry
-
+  
 theorem tree_edges_count {T : SimpleGraph V} [Fintype V] (hT : T.IsTree) [Fintype T.edgeSet] :
   Fintype.card T.edgeSet = Fintype.card V - 1 := by
   sorry
@@ -92,10 +95,21 @@ fun {V} {G} {e} [Fintype ↑G.edgeSet] ↦ Set.mem_toFinset
 -/
 #print SimpleGraph.mem_edgeFinset
 
+/--
+warning: automatically included section variable(s) unused in theorem 'SimpleGraph.edgeFinset_eq_edgeSet':
+  [Fintype V]
+  [DecidableEq V]
+  [Inhabited V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [DecidableEq V] [Inhabited V] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+-/
+#guard_msgs in
 theorem edgeFinset_eq_edgeSet {G : SimpleGraph V} [Fintype G.edgeSet] :
   G.edgeFinset = G.edgeSet.toFinset := by
   ext e
   rw [SimpleGraph.mem_edgeFinset]
+
 
 theorem connected_graph_with_n_minus_1_edges_is_tree {G : SimpleGraph V} [Fintype V] [Fintype G.edgeSet]
   (hG : G.Connected) (hE : G.edgeFinset.card = Fintype.card V - 1) : G.IsTree := by
