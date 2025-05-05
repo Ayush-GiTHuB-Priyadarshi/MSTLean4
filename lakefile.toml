@@ -11,5 +11,10 @@ autoImplicit = false
 name = "mathlib"
 scope = "leanprover-community"
 
+[[require]]
+name = "LeanAideTools"
+git = "https://github.com/siddhartha-gadgil/LeanAideTools.git"
+rev = "main"
+
 [[lean_lib]]
 name = "MSTLean4"
