@@ -16,7 +16,7 @@ MSTLean4/
 ├── MSTLean4/              # Main Lean source directory
 │   ├── DataStructures/    # Core data structures (e.g. Partition ADT, DSU)
 │   ├── GraphTheory/       # Formalizations of graphs, trees, and MSTs
-│   └── Basic.lean         # Common definitions and helper theorems
+│   └── Basic.lean         
 ├── .gitignore             # Git ignore rules
 ├── lake-manifest.json     # Lake’s manifest file (auto-generated)
 ├── lakefile.toml          # Project configuration for the Lake build system
